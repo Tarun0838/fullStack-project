@@ -12,7 +12,7 @@ router.get('/logout', (req, res)=> {
     res.send('logout endpoint ')
 })
 router.get('/update', (req, res)=> {
-    res.send('logout endpoint ')
+    res.send('update endpoint ')
 })
 
 export default router;
