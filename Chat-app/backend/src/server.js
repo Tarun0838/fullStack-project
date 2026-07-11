@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import authRoutes from './routes/auth.route.js'
 import messageRoutes from './routes/message.route.js'
 import path from 'path'
+import connectDB from './lib/db.js'
 
 dotenv.config()
 const app = express();
@@ -28,5 +29,6 @@ if (process.env.NODE_ENV === 'production') {
 
 
 app.listen(port, () => {
+    connectDB();
     console.log(`server is running on http://localhost:${port}`)
 })
