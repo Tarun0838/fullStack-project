@@ -88,18 +88,53 @@ export const sendMessage = async (req, res) => {
         await message.save();
 
         // TODO: send message in real time using soket.io
-        
+
 
         res.status(200).json(message)
 
     } catch (error) {
         console.log(`error occur in sending message ${error}`)
-        res.status(500).json({message: "server error in sending message "})
+        res.status(500).json({ message: "server error in sending message " })
     }
 }
 
-export const getChatUser = async (req,res) => {
+export const getChatUser = async (req, res) => {
     /**
-     * yah basically vo sare user chaiye jinse maine chat ki hai 
+     * yah basically vo sare user chaiye jinse maine chat ki hai ya jinhone mujhse chat ki hai vo sare message lenge
+     * 
+     * then in sare msg mai ke senderID ya receiverId ek array mai store kr lenge 
+     * 
+     * then un id ke basis par user find kar lenge
+     * 
      */
+
+    // loggedInUserId lunga \\ apni id lunga
+    const loggedInUserId = req.user._id;
+
+    // jo jo msg mujhse related hai vo sare msg get karunga
+    try {
+
+        const allMessages = await Message.find({
+            $or: [{ senderId: loggedInUserId }, { receiverId: loggedInUserId }]
+        })
+
+        // ab in sare msg mai se sender and receiver id leni hai
+
+        const chatUserIds = [
+            ... new Set(
+                allMessages.map((msg) => msg.senderId.toString() === loggedInUserId.toString() ? msg.receiverId.toString() : msg.senderId.toString())
+            )
+        ]
+
+        // ab user find karunga un ids ke basis par 
+
+        const chatUser = await User.find({
+            _id: { $in: chatUserIds }
+        }).select("-password")
+
+        res.status(200).json(chatUser)
+    } catch (error) {
+        console.log(`error occurs in chatUser controller ${error}`)
+        res.status(500).json({message: "server error in chat user "})
+    }
 }
