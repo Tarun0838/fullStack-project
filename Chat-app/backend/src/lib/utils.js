@@ -1,4 +1,8 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv'
+
+dotenv.config();
+
 
  const generateToken = async(userId , res)=> {
     // here we are going to generate token for authentication
@@ -9,7 +13,7 @@ import jwt from 'jsonwebtoken';
     )
 
     // cookies mai send kardo token ko
-    res.cookies('jwt', token, {
+    res.cookie('jwt', token, {
         maxAge: 1000*60*60*24*7,
         httpOnly: true,
         sameSite: true,
