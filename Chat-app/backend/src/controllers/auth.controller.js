@@ -51,7 +51,10 @@ export const signUp = async (req, res) => {
 
             // seding welcome email to user
             try {
-                await sendWelcomeEmail(newUser.fullname, newUser.email, process.env.CLIENT_URL)
+                if(process.env.NODE_ENV === 'production'){
+
+                    await sendWelcomeEmail(newUser.fullname, newUser.email, process.env.CLIENT_URL)
+                }
             } catch (error) {
                 console.log(`Error occur in sendind email : ${error}`)
                 console.dir(error, { depth: null });
@@ -154,10 +157,10 @@ export const updateProfile = async (req, res)=> {
        console.log(`Profile pic is uploaded to Cloudinary Successfully ${uploadResponse.secure_url}`)
     
        // store url in database
-       console.log(userId)
+       
       const updatedUser = await  User.findByIdAndUpdate(userId, {profilePic: uploadResponse.secure_url},{new: true}).select("-password")
 
-      console.log(updatedUser)
+     
       if(!updatedUser){
         return res.status(500).json({message: "something went wrong in server"})
       }
