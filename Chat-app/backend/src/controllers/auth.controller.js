@@ -79,3 +79,55 @@ export const signUp = async (req, res) => {
 
 
 }
+
+export const login = async (req, res) => {
+    // get the data for login 
+    const {email , password}= req.body;
+
+    try {
+        // validate the fields
+        if(!email || !password){
+            return res.status(400).json({message: "All fields are required!"})
+        }
+    
+        // check user exist or not
+       const user= await  User.findOne({email})
+       if(!user){
+        return res.status(400).json({message: "Invalid Credentials"})
+       }
+    
+       // compare password
+       const idPasswordCorrect = await bcrypt.compare(password , user.password)
+       if(!idPasswordCorrect){
+        return res.status(400).json({message: "Invalid Credentials"})
+       }
+    
+       // generating token
+       generateToken(user._id, res);
+    
+       // sending the response to user
+       res.status(201).json({
+        _id: user._id,
+        fullname: user.fullname,
+        email: user.email,
+        profilePic: user.profilePic,
+        message: `${user.fullname} is loggedIn Successfully`
+       })
+    } catch (error) {
+        console.error(`error occur in login controller : ${error}`)
+        res.status(500).json({message: 'internal server error '})
+    }
+}
+
+export const logout = async (req, res) => {
+    // logout mai to simply cookie ko reset karna hai 
+    try {
+        res.cookie('jwt', "", {
+            maxAge:0
+        })
+        res.status(201).json({message:"user Logged Out Successfully"})
+    } catch (error) {
+        console.error(`error occur in logout controller : ${error}`)
+        res.status(500).json({message:"Internal server error"})
+    }
+}
