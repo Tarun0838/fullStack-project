@@ -1,20 +1,28 @@
-import React from 'react'
-import { Route, Routes } from 'react-router'
+import React, { useEffect } from 'react'
+import { Navigate, Route, Routes } from 'react-router'
 import ChatPage from './pages/ChatPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
-
+import { authStore } from './store/authStore'
 function App() {
+  const {isCheckingAuth , authUser , checkAuth} = authStore()
+
+  useEffect(()=> {
+      checkAuth();
+  },[checkAuth])
+
+  console.log({authUser})
+
   return (
     <div className="min-h-screen bg-slate-900 relative flex items-center justify-center p-4 overflow-hidden">
       {/* DECORATORS - GRID BG & GLOW SHAPES */}
-      <div className="absolute  top-0 pointer-events-none inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />
+      {/* <div className="absolute  top-0 pointer-events-none inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />
       <div className="absolute pointer-events-none top-0 -left-4 size-96 bg-pink-500 opacity-20 blur-[100px]" />
-      <div className="absolute pointer-events-none bottom-0 -right-4 size-96 bg-cyan-500 opacity-20 blur-[100px]" />
+      <div className="absolute pointer-events-none bottom-0 -right-4 size-96 bg-cyan-500 opacity-20 blur-[100px]" /> */}
       <Routes>
-        <Route path='/' element={<ChatPage />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/signup' element={<SignupPage />} />
+        <Route path='/' element={authUser? <ChatPage /> : <Navigate to={'/login'}  /> } />
+        <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to={'/'} /> } />
+        <Route path='/signup' element={ <SignupPage />} />
       </Routes>
 
     </div>
