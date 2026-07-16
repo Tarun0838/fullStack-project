@@ -1,19 +1,127 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useAuthStore } from '../store/useAuthStore';
+import { Lock, MailIcon, MessageCircle, MessageCircleIcon } from 'lucide-react';
+import { Link } from 'react-router';
 
 
 const LoginPage = () => {
     
-    // authStore use karnge
-    // const {authUser , isLoggedIn , login} = useAuthStore();
-    // console.log("auth user : ", authUser)
+  const [formData, setFormData] = useState({email:"",password: ""});
+  const {login , isLoggingIn} = useAuthStore();
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    login(formData)
+    
+  }
+
 
   return (
-    <div>
-      <h1>Login page </h1>
-      <button
-    
-      className='btn btn-primary' 
-      >Login</button>
+    <div className='w-full  flex items-center justify-center p-6 bg-slate-900'>
+      <div
+      className='relative w-full max-w-6xl md:h-[800px] h-[650px] bg-slate-800 rounded-2xl'
+      >
+        <div className=' w-full h-full flex flex-col md:flex-row'>
+
+            {/* left side wala form banayenge  */}
+            
+            <div className='md:w-1/2 h-full p-8 flex items-center justify-center md:border-r border-slate-600/30 '>
+
+                <div className='w-full max-w-md '>
+
+                  {/* HEADING PART DONE  */}
+
+                  <div className='text-center mb-8'>
+                      <MessageCircleIcon  className='w-12 h-12 mx-auto text-slate-400 mb-4' />
+                      <h1 className='text-slate-200 font-bold text-2xl mb-2' >Welcome Back</h1>
+                      <p className='text-slate-400'>Login to access your account</p>
+                  </div>
+
+                    {/* FORM PART START  */}
+
+                    <form onSubmit={submitHandler} className='space-y-6'>
+                        
+
+                          {/* email  input  */}
+
+                      <div>
+                        <label className='auth-input-label'>email </label>
+                        <div className='relative'>
+                          <MailIcon className='auth-input-icon' />
+                          <input
+                          value={formData.email} 
+                          onChange={(e)=> { setFormData({...formData, email: e.target.value}) }}
+                          className='input'
+                          placeholder='tarunyadav@example.com'
+                          type="email" />
+                        </div>
+                      </div>
+
+
+                          {/* password  input  */}
+                      <div>
+                        <label className='auth-input-label'>Password </label>
+                        <div className='relative'>
+                          <Lock className='auth-input-icon' />
+                          <input
+                          value={formData.password} 
+                          onChange={(e)=> { setFormData({...formData, password: e.target.value}) }}
+                          className='input'
+                          placeholder='password'
+                          type="password" />
+                        </div>
+                      </div>
+
+                      {/* SUBMIT BUTTON  */}
+                      <button
+                     type='submit'
+                     className='auth-btn'
+                     disabled={isLoggingIn}
+                      >
+                        {
+                          isLoggingIn ? ( <LoaderIcon className='w-full h-5 mx-auto text-center animate-spin' />  ) : ("Sign in")
+                        }
+
+                      </button>
+
+                    </form>
+
+                    <div className='mt-5 text-center'>
+                      <Link to={'/signup'} className='auth-link'> Dont have an account? Singup </Link>
+                    </div>
+
+                </div>
+            </div>
+
+
+            {/* form right side  */}
+              <div
+              className='hidden md:w-1/2 md:flex items-center justify-center p-6 bg-gradient-to-bl from-slate-800/20 to-transparent'
+              >
+
+                  <div>
+                <img
+                  src="/login.png"
+                  alt="People using mobile devices"
+                  className="w-full h-auto object-contain"
+                />
+                <div className="mt-6 text-center">
+                  <h3 className="text-xl font-medium text-cyan-400">Connect Anytime Anywhere</h3>
+
+                  <div className="mt-4 flex justify-center gap-4 text-lg text-white">
+                    <span className="auth-badge">Free</span>
+                    <span className="auth-badge">Easy Setup</span>
+                    <span className="auth-badge">Private</span>
+                  </div>
+                </div>
+              </div>
+
+              </div>
+
+        </div>
+
+      </div>
+      
     </div>
   )
 }
