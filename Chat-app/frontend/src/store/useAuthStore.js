@@ -17,8 +17,8 @@ export const useAuthStore = create((set) => ({
     // req send karenge /check par
     try {
       const res = await axiosInstance.get('/auth/check');
+      console.log("auth user: ", res.data)
       set({ authUser: res.data });
-      console.log("auth user: ", authUser)
 
     } catch (error) {
       console.log("Error in check auth : ", error);
@@ -46,38 +46,40 @@ export const useAuthStore = create((set) => ({
     }
   },
 
-  login : async(data) => {
+  login: async (data) => {
     // login karne ke liye res send karenge and email and password send karenge
     try {
-      set({isLogginIn: true})
+      set({ isLogginIn: true })
       const res = await axiosInstance.post('/auth/login', data);
-      set({authUser: res.data});
+      set({ authUser: res.data });
       // success notification 
       toast.success("Login user Successfully");
     } catch (error) {
-      set({authUser: null});
+      set({ authUser: null });
       console.log('error occur in login authStore', error.message);
       toast.error(error.response.data.message);
     }
-    finally{
-      
-      set({isLogginIn: false});
+    finally {
+
+      set({ isLogginIn: false });
     }
   },
 
-  logout: async() => {
-   try {
-    set({isLoggingOut:true})
-     const res = await axiosInstance.post('/auth/logout');
-     set({authUser: res.data})
-     toast.success("Logout Successfully")
-   } catch (error) {
-    set({authUser: null})
-    toast.error(error.response.data.message)
-   }
-   finally{
-    set({isLoggingOut: false})
-   }
+  logout: async () => {
+    try {
+      set({ isLoggingOut: true })
+      const res = await axiosInstance.post('/auth/logout');
+      // error ya logout ke badd authuse mai data set nhi karna balki null krna hai 
+      //  set({authUser: res.data})
+      set({ authUser: null })
+      toast.success("Logout Successfully")
+    } catch (error) {
+      set({ authUser: null })
+      toast.error(error.response.data.message)
+    }
+    finally {
+      set({ isLoggingOut: false })
+    }
   }
 
 
