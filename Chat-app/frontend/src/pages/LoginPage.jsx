@@ -32,6 +32,7 @@ const LoginPage = () => {
                   {/* HEADING PART DONE  */}
 
                   <div className='text-center mb-8'>
+                      
                       <MessageCircleIcon  className='w-12 h-12 mx-auto text-slate-400 mb-4' />
                       <h1 className='text-slate-200 font-bold text-2xl mb-2' >Welcome Back</h1>
                       <p className='text-slate-400'>Login to access your account</p>
