@@ -40,8 +40,23 @@ const userSchema = new mongoose.Schema(
                 ref: "User"
             }
         ],
-        
+        posts: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Post"
+            }
+        ],
+        reels: [
+            {
+               type: mongoose.Schema.Types.ObjectId,
+                ref: "Reel" 
+            }
+        ],
+        story: {
+             type: mongoose.Schema.Types.ObjectId,
+                ref: "Story"
+        }
     },
-    {timestamps: true});
+    { timestamps: true });
 
 export const User = mongoose.model("User", userSchema)
