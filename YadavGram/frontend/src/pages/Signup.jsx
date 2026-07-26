@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import { Lock, LockIcon, MailIcon, MessageCircleIcon, UserIcon , Eye, EyeOff } from 'lucide-react';
+import axios from 'axios'
+import { serverUrl } from '../App';
+import { ClipLoader } from "react-spinners";
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+    const navigate = useNavigate();
+    const [loader, setLoader] = useState(false)
 
     const [formData, setFormData] = useState({
         name: "",
@@ -11,6 +17,25 @@ const Signup = () => {
     })
 
     let [showPassword, setShowPassword] = useState(false)
+    const submitHandler = (e)=> {
+        e.preventDefault();
+       
+    }
+
+
+    const signupHandler = async () => {
+        setLoader(true)
+        try {
+            const res = await axios.post(`${serverUrl}/api/auth/signup`, 
+                formData, 
+                {withCredentials:true}) 
+            console.log(res.data);
+            setLoader(false)
+        } catch (error) {
+            console.log('error ',error.message)
+            setLoader(false)
+        }
+    }
 
     return (
         <div className='w-full h-screen text-white flex flex-col items-center justify-center bg-linear-to-b from-black to-gray-800'>
@@ -19,13 +44,15 @@ const Signup = () => {
                 <div className='w-full  md:w-1/2 h-full bg-white flex flex-col gap-5 p-2 items-center flex-start '>
                     {/* HEADER PART  */}
                     <div className='flex items-center text-black mt-10 gap-3 '>
-                        <span className='text-xl font-semibold '>Sign Up to </span>
+                        <span className='text-xl font-semibold text-blue-800  '>Sign Up to </span>
                         <h1 className='text-4xl font-bold font-sans shadow-4xl shadow-gray-200 '>YadavGram</h1>
                     </div>
 
                     {/* INPUT PART  */}
 
-                    <form className='space-y-6'>
+                    <form
+                    onSubmit={submitHandler}
+                     className='space-y-6'>
 
                         {/* input name part  */}
                         <div >
@@ -109,13 +136,22 @@ const Signup = () => {
 
                         <div className='flex text-slate-900 flex-col items-center justify-center'>
                             <button
+                            disabled={loader}
+                            onClick={signupHandler}
                             className='auth-btn'
-                            >SignUp</button>
+                            >
+                                {
+                                    loader? <ClipLoader /> : "Sign Up"
+                                }
+                            </button>
+
                           <p 
-                          className='text-lg font-medium '
+                            onClick={()=> navigate('/login')}
+                          className='text-lg  cursor-pointer  font-medium '
                           > Already have an account? 
                           <span 
-                          className='text-2xl font-semibold ml-2 cursor-pointer'
+                          onClick={()=> navigate('/login')}
+                          className='text-2xl font-semibold ml-2 cursor-pointer '
                           >Login</span> </p>
                         </div>
 
@@ -127,8 +163,20 @@ const Signup = () => {
 
 
 
-                <div className='md:w-1/2 h-full lg:flex hidden justify-center items-center flex-col gap-5 text-white text-[16px] font-semibold  rounded-l-[30px] bg-[#000000] shadow-3xl shadow-black'>
+                <div className='md:w-1/2 h-full lg:flex hidden justify-center items-center flex-col  text-white text-[16px] font-semibold  rounded-l-[30px] bg-[#000000] shadow-3xl shadow-black'>
+                    <div className='flex flex-col items-center justify-center gap-20 relative'>
+                        <div className='p-4 flex items-center  gap-4 flex-col mt-6 '>
+                            <h1 className='text-2xl text-amber-500 font-bold pt-6'>WELCOME TO YADAVGRAM</h1>
+                            <h1 className='text-2xl text-amber-300 font-semibold'>YadavGram || A Social Media Plateform App </h1>
+                        </div>
+                        {/* <img 
+                        className='w-40'
+                        src='/signup1.svg' alt="signup image" /> */}
 
+                        <img 
+                        className='w-full'
+                        src="/signup2.svg" alt="signup Page" />
+                    </div>
                 </div>
             </div>
         </div>

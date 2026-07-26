@@ -2,8 +2,8 @@
 
 
 .input{
-  @apply w-full bg-slate-800 text-gray-100 font-medium text-lg border border-slate-700 rounded-lg py-2 pl-20 pr-4  focus:ring-2 focus:ring-slate-500
-  focus:border-transparent mt-3
+  @apply w-full  bg-slate-800 text-gray-100 font-medium text-lg border border-slate-700 rounded-lg py-2 pl-4 pr-2  focus:ring-2 focus:ring-slate-500
+  focus:border-transparent mt-3 text-left
 }
 
 .auth-input-label{
@@ -11,7 +11,7 @@
 }
 
 .auth-input-icon{
-  @apply absolute top-[55%] left-3 -translate-y-1/2 size-5
+  @apply absolute top-[55%] left-3 -translate-y-1/2 size-5 object-cover 
 }
 
 .show-password-icon{
@@ -20,4 +20,12 @@
 
 .auth-btn{
   @apply w-fit mb-1 py-3 px-6 text-2xl text-gray-100 font-medium bg-linear-to-r from-slate-600 to-slate-900 rounded-2xl
+}
+
+.forgot-email-inp{
+  @apply text-3xl
+}
+
+.new-password-label{
+  @apply text-2xl
 }
