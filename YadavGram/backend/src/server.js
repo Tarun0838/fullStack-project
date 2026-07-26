@@ -7,7 +7,11 @@ import authRouter from './routes/auth.route.js';
 import userRouter from './routes/user.route.js';
 
 // configuring the dotenv file 
-dotenv.config();
+dotenv.config({
+   path: "./.env"
+});
+
+
 
 const app = express();
 const port = process.env.PORT || 8000;

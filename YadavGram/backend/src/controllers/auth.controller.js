@@ -1,6 +1,9 @@
 import generateToken from "../config/token.js";
 import { User } from "../models/user.model.js";
 import bcrypt from 'bcryptjs';
+import sendMail from "../config/mail.js";
+
+
 
 
 export const signup = async (req , res ) => {
@@ -119,5 +122,117 @@ export const logout = async (req, res) => {
         return res.status(200).json({message: "User Logged Out Successfully !"})
     } catch (error) {
         return res.status(500).json({message: "internal server error in Logout!"})
+    }
+}
+
+export const sendOtp = async (req , res) => {
+    try {
+        // yah otp send karenge 
+        const {email} = req.body;
+
+        // validate email
+        if(!email) return res.status(400).json({message: "email is required!"})
+        
+        // find user using email
+        const user = await User.findOne({email});
+        if(!user){
+           return res.status(400).json({message: "User Not Found!"})
+        }
+
+        // ab otp generate karo
+        const otp = Math.floor(1000 + Math.random()*9000).toString();
+        // console.log(otp);
+
+        user.resetOtp = otp;
+        // that means 5 minute. baad otp expires ho jayega
+
+        user.otpExpires = Date.now() + (1000*60*5);
+        user.isOtpVerified = false;
+
+        await user.save();
+
+        // now sending the email
+
+        await sendMail(email ,otp);
+        res.status(200).json({
+            success: true,
+            message: `Otp has sent to your email:${email} `
+        })
+    } catch (error) {
+        console.error(`error in otp controller: ${error.message}`)
+        return res.status(500).json({message: "Internal Server Error"})
+    }
+}
+
+export const verifyOtp = async (req , res ) => {
+    try {
+        /**
+         * otp verify karna hai to email and otp chaiye 
+         * 
+         */
+
+        const {email , otp} = req.body;
+        // validate karunga
+        if(!email || !otp ){
+            return res.status(400).json({message: "All fields are required!"})
+
+        }
+
+        // finding the user with this email
+        const user = await User.findOne({email});
+        if(!user || user.resetOtp !== otp || user.otpExpires < Date.now){
+            return res.status(400).json({message: "invalid user "})
+        }
+
+        // now verifyOtp ko true karo
+        user.verifyOtp = true;
+        user.isOtpVerified = true;
+        user.resetOtp = undefined;
+        user.otpExpires = undefined;
+        await user.save();
+        res.status(200).json({message: "opt verified successfully"});
+
+
+    } catch (error) {
+        console.log("error: ", error.message)
+        res.status(500).json({message: "Internal Server error "});
+    }
+}
+
+export const resetPassword = async (req, res) => {
+    try {
+        // step 1: email and password lo 
+        const {email , password} = req.body;
+
+        // step 2: inko verify kro
+        if(!email || !password) {
+
+            return res.status(400).json({message: "All fields are required!"})
+        }
+        // finding user using this email
+
+        const user = await User.findOne({email})
+        if(!user || !user.isOtpVerified){
+            return res.status(400).json({message: "Otp verification is required"})
+        }
+
+        // console.log(user.isOtpVerified)
+        // password ko hash karunga
+        const hashPassword = await bcrypt.hash(password , 10);
+
+        user.password = hashPassword;
+        user.isOtpVerified = false;
+        await user.save();
+
+        
+
+        return res.status(200).json({message: "password Reset successfully"})
+        
+
+        
+        
+    } catch (error) {
+        console.error("error", error.message)
+         return res.status(500).json({message: "Internal server error "})
     }
 }
