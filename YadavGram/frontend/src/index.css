@@ -29,3 +29,23 @@
 .new-password-label{
   @apply text-2xl
 }
+
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+
+html,
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+}

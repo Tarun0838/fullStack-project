@@ -1,10 +1,11 @@
 import { Heart } from 'lucide-react'
 import React from 'react'
+import StoryDp from './StoryDp'
 
 const CenterHome = () => {
   return (
     <div
-      className='w-full lg:w-[50%] bg-slate-900 border border-slate-700 min-h-screen lg:h-screen relative overflow-y-auto text-gray-100 '
+      className='w-full lg:w-[50%] bg-slate-900 border border-slate-700 min-h-screen lg:h-screen relative overflow-y-auto text-gray-100 p-4 '
     >
       {/* CHOTI SCREEN KE LIYE LOGO AND NOTIFICATION ICON  */}
 
@@ -20,9 +21,28 @@ const CenterHome = () => {
         </div>
       </div>
 
-      {/* AB FEED WALA PART AYEGA */}
+      {/* AB story WALA PART AYEGA */}
+      <div className='flex items-center justify-center overflow-auto gap-3 p-4'>
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+        <StoryDp />
+      </div>
 
-      
+
 
     </div>
   )
