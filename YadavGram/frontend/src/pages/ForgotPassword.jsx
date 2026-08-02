@@ -4,8 +4,11 @@ import  { useState } from 'react'
 import { serverUrl } from '../App.jsx';
 import toast from 'react-hot-toast';
 import { ClipLoader } from 'react-spinners';
+import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
+    const navigate = useNavigate();
+
     const [step, setStep] = useState(1);
     const [loader, setLoader] = useState(false)
     const [formData, setFormData] = useState({
@@ -57,11 +60,12 @@ const ForgotPassword = () => {
                 },
                 {withCredentials: true}
             )
-
+             toast.success(res.data.message)
             console.log(res.data);
             setLoader(false)
             setStep(3)
         } catch (error) {
+             toast.error(error.response.data.message)
             console.log("error ", error)
                setLoader(false)
         }
@@ -87,10 +91,11 @@ const ForgotPassword = () => {
                 },
                 {withCredentials: true}
             )
-
+            toast.success(res.data.message)
             console.log(res.data);
             setLoader(false)
         } catch (error) {
+             toast.error(error.response.data.message)
             console.log("error ", error.response.data)
             setLoader(false)
         }
@@ -250,6 +255,13 @@ const ForgotPassword = () => {
                             }
                         </button>
 
+                        <button
+                        disabled={loader}
+                        className='auth-btn'
+                        onClick={()=> navigate('/login')}
+                        >
+                            Back to Login
+                        </button>
                 
                             
                     </div>

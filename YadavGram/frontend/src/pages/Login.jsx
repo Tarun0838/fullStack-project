@@ -5,8 +5,12 @@ import { serverUrl } from '../App';
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../redux/userSlice';
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false)
 
@@ -17,20 +21,20 @@ const Login = () => {
 
   let [showPassword, setShowPassword] = useState(false);
 
-  const submitHandler = (e) => {
+  const submitHandler = async(e) => {
     e.preventDefault();
 
-  }
-
-
-  const loginHandler = async () => {
     setLoader(true)
     try {
       const res = await axios.post(`${serverUrl}/api/auth/login`,
         formData,
         { withCredentials: true })
+
+        console.log("LOGIN RESPONSE:", res.data);
+        dispatch(setUserData(res.data.data))
         toast.success(` User LoggedIn Successfully!`)
-      console.log(res.data);
+      // console.log(res.data);
+        // yah se dispatch ke through setuserdata function se userData mai data ajyaega current user ka
       setLoader(false)
 
     } catch (error) {
@@ -38,7 +42,13 @@ const Login = () => {
       console.log('error ', error.message)
       setLoader(false)
     }
+
   }
+
+
+  // const loginHandler = async () => {
+    
+  // }
 
   return (
     <div className='w-full h-screen text-white flex flex-col items-center justify-center bg-linear-to-b from-black to-gray-800'>
@@ -114,7 +124,7 @@ const Login = () => {
             <div className='flex text-slate-900 flex-col items-center justify-center'>
               <button
                 disabled={loader}
-                onClick={loginHandler}
+               type='submit'
                 className='auth-btn'
               >
                 {
