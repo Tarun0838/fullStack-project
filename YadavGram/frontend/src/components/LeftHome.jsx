@@ -93,7 +93,7 @@ const LeftHome = () => {
                 <h1 className='text-xl font-medium'>Suggested Users </h1>
                  <div className='text-gray-200'>
                   {
-                   suggestedUser &&  suggestedUser.slice(0, 5).map((user , index) => (
+                   suggestedUser &&  suggestedUser.slice(0, 10).map((user , index) => (
                         <OtherUser key={index} user= {user} /> 
                     ))
                   }

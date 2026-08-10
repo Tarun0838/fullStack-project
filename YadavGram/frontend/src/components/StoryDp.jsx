@@ -3,7 +3,7 @@ import dp from '../assets/dp.jpg'
 
 const StoryDp = ({ profileImage, username }) => {
     return (
-        <div className='w-20 '>
+        <div className='w-16 '>
             <div className='w-15 h-15 flex items-center justify-center bg-linear-to-b from-indigo-500 to-indigo-800 rounded-full overflow-auto '>
                 <div className=' w-12 h-12 rounded-full border-2 border-slate-800 cursor-pointer overflow-hidden '>
 

@@ -1,9 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import dp from '../assets/dp.jpg'
+import { useNavigate } from 'react-router-dom'
 
 const OtherUser = ({user}) => {
-
+    const navigate = useNavigate();
     const {userData} = useSelector(state => state.user)
     return (
         <div
@@ -12,7 +13,9 @@ const OtherUser = ({user}) => {
             {/* profile db and user part  */}
 
             <div className='flex items-center gap-3'>
-                <div className=' w-12 h-12 rounded-full border-2 border-slate-800 cursor-pointer overflow-hidden '>
+                <div 
+                onClick={() => { navigate(`/profile/${user.username}`) }}
+                className=' w-12 h-12 rounded-full border-2 border-slate-800 cursor-pointer overflow-hidden '>
 
                     <img
                         className='w-full object-cover '

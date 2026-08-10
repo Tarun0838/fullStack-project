@@ -33,6 +33,7 @@ app.get('/', (req, res)=> {
     res.send('Welcome to Home Page');
 })
 
+
 app.listen(port , ()=> {
     connectDb();
     console.log(`server is running on http://localhost:${port}`)
