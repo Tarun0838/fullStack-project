@@ -27,7 +27,9 @@ const Nav = ({profileImage}) => {
 
             {/* Home icon div */}
             <div>
-                <House className='w-10 h-8 text-gray-100  cursor-pointer' />
+                <House
+                onClick={() => { navigate('/')}}
+                 className='w-10 h-8 text-gray-100  cursor-pointer' />
             </div>
 
             {/* reel icon  */}

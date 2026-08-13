@@ -8,7 +8,7 @@ export const currentUser = async (req, res) => {
         // loggedIn usr ki user id lo
         const userId = req.userId;
         // ab user find karo
-        const loggedInUser = await User.findById(userId);
+        const loggedInUser = await User.findById(userId).populate(posts);
         if (!loggedInUser) {
             return res.status(400).json({ message: "user Not Found" });
 
@@ -75,7 +75,9 @@ export const editProfile = async (req, res) => {
         // now edit the detail
         loggedInUser.name = name;
         loggedInUser.username = username;
-        loggedInUser.profileImage = profileImage
+        if(profileImage){
+            loggedInUser.profileImage = profileImage
+        }
         loggedInUser.bio = bio;
         loggedInUser.profession = profession;
         loggedInUser.gender = gender;
