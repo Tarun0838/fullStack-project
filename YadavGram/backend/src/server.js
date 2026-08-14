@@ -7,6 +7,7 @@ import authRouter from './routes/auth.route.js';
 import userRouter from './routes/user.route.js';
 import postRouter from './routes/post.routes.js';
 import reelRouter from './routes/reel.route.js';
+import storyRouter from './routes/story.route.js';
 
 // configuring the dotenv file 
 dotenv.config({
@@ -32,6 +33,7 @@ app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
 app.use('/api/post', postRouter)
 app.use('/api/reel', reelRouter)
+app.use('/api/story', storyRouter)
 
 
 app.get('/', (req, res)=> {

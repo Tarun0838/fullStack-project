@@ -3,7 +3,7 @@ import { Reel } from "../models/reel.model.js";
 import { User } from "../models/user.model.js";
 
 
-export const upload = async (req , res ) => {
+export const uploadReel = async (req , res ) => {
     try {
         /**
          * yah reels upload ke controller ayenge
