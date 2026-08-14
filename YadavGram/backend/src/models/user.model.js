@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema(
         },
         gender: {
             type: String,
-            enum : ["male", "female"]
+            enum: ["male", "female"]
         },
         followers: [
             {
@@ -58,22 +58,29 @@ const userSchema = new mongoose.Schema(
         ],
         reels: [
             {
-               type: mongoose.Schema.Types.ObjectId,
-                ref: "Reel" 
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Reel"
             }
         ],
         story: {
-             type: mongoose.Schema.Types.ObjectId,
-                ref: "Story"
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Story"
         },
+        saved: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Post"
+            }
+        ],
+
         resetOtp: {
             type: String
         },
         otpExpires: {
-            type : Date
+            type: Date
         },
         isOtpVerified: {
-            type : Boolean,
+            type: Boolean,
             default: false
         }
 
