@@ -1,32 +1,37 @@
-import mongoose, { Types } from "mongoose";
+import mongoose from "mongoose";
 
 const reelSchema = new mongoose.Schema({
-    
+
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
     },
-    media : {
+    media: {
         type: String,
         required: true
     },
-    caption : {
+    caption: {
         type: String
     },
-    likes : [
+    likes: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
         }
     ],
-    comment : [
+    comment: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
+            author: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
+            },
+            message: {
+                type: String
+            }
         }
     ]
 
-},{timestamps: true});
+}, { timestamps: true });
 
 export const Reel = mongoose.model("Reel", reelSchema);

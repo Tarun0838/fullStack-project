@@ -5,6 +5,8 @@ import connectDb from './config/db.js';
 import cookieParser from 'cookie-parser'
 import authRouter from './routes/auth.route.js';
 import userRouter from './routes/user.route.js';
+import postRouter from './routes/post.routes.js';
+import reelRouter from './routes/reel.route.js';
 
 // configuring the dotenv file 
 dotenv.config({
@@ -28,6 +30,9 @@ app.use(cors({
 
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
+app.use('/api/post', postRouter)
+app.use('/api/reel', reelRouter)
+
 
 app.get('/', (req, res)=> {
     res.send('Welcome to Home Page');

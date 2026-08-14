@@ -59,7 +59,7 @@ export const getAllPost = async (req, res) => {
          * get all post of user 
          * 
          */
-        const posts = await Post.find({author: req.userId}).populate("author", "name username profileImage")
+        const posts = await Post.find({}).populate("author", "name username profileImage")
 
         return res.status(200).json(posts)
     } catch (error) {
