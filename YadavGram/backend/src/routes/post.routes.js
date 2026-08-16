@@ -7,7 +7,7 @@ const postRouter = Router();
 
 postRouter.post('/upload',authMiddleware, upload.single("media") , uploadPost)
 postRouter.get('/getAll',authMiddleware , getAllPost)
-postRouter.get('/likes/:postId',authMiddleware , likes)
+postRouter.post('/likes/:postId',authMiddleware , likes)
 postRouter.get('/saved/:postId',authMiddleware , saved)
 postRouter.post('/comment',authMiddleware , comments)
 

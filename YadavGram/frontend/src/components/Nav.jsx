@@ -10,14 +10,14 @@ const Nav = ({profileImage}) => {
     // console.log(userData)
     const navigate = useNavigate();
     return (
-        <div className='w-[90%] lg:w-[40%] bg-slate-900 h-20 rounded-full fixed bottom-4 flex items-center justify-around shadow-2xl shadow-slate-950 z-100 '>
+        <div className='w-[90%] lg:w-[40%] bg-slate-900 h-15 md:h-20 rounded-full fixed bottom-2 md:bottom-4 flex items-center justify-around shadow-2xl shadow-slate-950 z-100 '>
 
             {/* work icons  */}
 
             {/* profile icon  */}
             <div 
             onClick={() => { navigate(`/profile/${userData.username}`) }}
-            className=' w-10 h-10 rounded-full border-2 border-slate-800 cursor-pointer overflow-hidden '>
+            className=' w-8 h-8 rounded-full border-2 border-slate-800 cursor-pointer overflow-hidden '>
 
                 <img
                     className='w-full object-cover '
@@ -29,24 +29,24 @@ const Nav = ({profileImage}) => {
             <div>
                 <House
                 onClick={() => { navigate('/')}}
-                 className='w-10 h-8 text-gray-100  cursor-pointer' />
+                 className='w-8 h-6 text-gray-100  cursor-pointer' />
             </div>
 
             {/* reel icon  */}
             <div>
-                <Play className='w-10 h-8 text-gray-100 cursor-pointer' />
+                <Play className='w-8 h-6 text-gray-100 cursor-pointer' />
             </div>
             
             {/* search icon */}
             <div>
-                 <Search className='w-10 h-8 text-gray-100 cursor-pointer' />
+                 <Search className='w-8 h-6 text-gray-100 cursor-pointer' />
             </div>
 
             {/* plus icon  */}
             <div>
                   <Plus
                   onClick={()=> {navigate('/upload')}} 
-                  className='w-10 h-8 text-gray-100 cursor-pointer'  />
+                  className='w-8 h-6 text-gray-100 cursor-pointer'  />
             </div>
 
         </div>
