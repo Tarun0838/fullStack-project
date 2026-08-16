@@ -8,7 +8,7 @@ export const currentUser = async (req, res) => {
         // loggedIn usr ki user id lo
         const userId = req.userId;
         // ab user find karo
-        const loggedInUser = await User.findById(userId).populate(posts);
+        const loggedInUser = await User.findById(userId).populate("posts");
         if (!loggedInUser) {
             return res.status(400).json({ message: "user Not Found" });
 

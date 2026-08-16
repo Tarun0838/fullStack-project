@@ -39,6 +39,15 @@
   scrollbar-width: none;
 }
 
+.hover-effect {
+  @apply hover:bg-slate-900 hover:text-gray-100 hover:shadow-2xl shadow-slate-900 rounded-full
+}
+
+.active-tab {
+  @apply bg-slate-900 text-gray-100 rounded-full shadow-2xl shadow-slate-900
+}
+
+
 
 html,
 * {

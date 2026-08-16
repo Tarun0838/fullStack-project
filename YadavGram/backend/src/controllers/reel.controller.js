@@ -18,9 +18,9 @@ export const uploadReel = async (req , res ) => {
 
         // step 1 : get the caption
         const {caption} = req.body;
-        if(!caption){
-            return res.status(400).json({message: 'Caption is required'})
-        }
+        // if(!caption){
+        //     return res.status(400).json({message: 'Caption is required'})
+        // }
 
         let media;
         if(req.file){

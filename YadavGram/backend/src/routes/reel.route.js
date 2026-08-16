@@ -4,9 +4,9 @@ import authMiddleware from '../middlewares/auth.middleware.js';
 import { upload } from "../middlewares/multer.middleware.js";
 const reelRouter = Router();
 
-reelRouter.get('/upload',authMiddleware, upload.single("media") , uploadReel)
+reelRouter.post('/upload',authMiddleware, upload.single("media") , uploadReel)
 reelRouter.get('/getAll',authMiddleware , getAllReel)
 reelRouter.get('/likes/:reelId',authMiddleware , likes)
-reelRouter.get('/comment',authMiddleware , comments)
+reelRouter.post('/comment',authMiddleware , comments)
 
 export default reelRouter;

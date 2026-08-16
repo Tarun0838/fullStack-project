@@ -44,7 +44,9 @@ const Nav = ({profileImage}) => {
 
             {/* plus icon  */}
             <div>
-                  <Plus className='w-10 h-8 text-gray-100 cursor-pointer'  />
+                  <Plus
+                  onClick={()=> {navigate('/upload')}} 
+                  className='w-10 h-8 text-gray-100 cursor-pointer'  />
             </div>
 
         </div>

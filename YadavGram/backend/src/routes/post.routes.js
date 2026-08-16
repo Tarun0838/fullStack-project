@@ -5,10 +5,10 @@ import { upload } from "../middlewares/multer.middleware.js";
 
 const postRouter = Router();
 
-postRouter.get('/upload',authMiddleware, upload.single("media") , uploadPost)
+postRouter.post('/upload',authMiddleware, upload.single("media") , uploadPost)
 postRouter.get('/getAll',authMiddleware , getAllPost)
 postRouter.get('/likes/:postId',authMiddleware , likes)
 postRouter.get('/saved/:postId',authMiddleware , saved)
-postRouter.get('/comment',authMiddleware , comments)
+postRouter.post('/comment',authMiddleware , comments)
 
 export default postRouter;

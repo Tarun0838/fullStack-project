@@ -10,6 +10,7 @@ import GetCurrentUser from './hooks/GetCurrentUser'
 import getSuggestedUser from './hooks/getSuggestedUser'
 import Profile from './pages/Profile'
 import EditProfile from './pages/EditProfile'
+import Upload from './pages/Upload'
 export const serverUrl = 'http://localhost:8000'
 const App = () => {
   GetCurrentUser();
@@ -26,6 +27,7 @@ const App = () => {
       <Route path='/forgot-password' element={!userData? <ForgotPassword/> : <Navigate to={'/'} /> } /> 
       <Route path={`/profile/:username`} element={userData ? <Profile /> : <Navigate to={'/login'} /> } />
       <Route path={'/editprofile'} element={userData? <EditProfile /> : <Navigate to={'/login'} /> } /> 
+      <Route path={'/upload'} element={userData? <Upload /> : <Navigate to={'/login'} /> } /> 
 
 
 
