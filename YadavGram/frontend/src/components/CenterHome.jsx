@@ -2,8 +2,11 @@ import { Heart } from 'lucide-react'
 import React from 'react'
 import StoryDp from './StoryDp'
 import Nav from './Nav'
+import { useSelector } from 'react-redux'
+import Post from './Post'
 
 const CenterHome = () => {
+  const {postData} = useSelector(state => state.post);
   return (
     <div
       className='w-full lg:w-[50%] bg-slate-900 border border-slate-700 min-h-screen lg:h-screen relative overflow-y-auto text-gray-100 p-4 '
@@ -51,6 +54,12 @@ const CenterHome = () => {
 
           {/* navbar component  */}
           <Nav /> 
+
+          {
+            postData?.map((post , index)=> (
+              <Post postData={post} key={index} /> 
+            ))
+          }
       </div>
 
    

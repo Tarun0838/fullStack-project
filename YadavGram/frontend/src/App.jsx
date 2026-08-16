@@ -11,10 +11,14 @@ import getSuggestedUser from './hooks/getSuggestedUser'
 import Profile from './pages/Profile'
 import EditProfile from './pages/EditProfile'
 import Upload from './pages/Upload'
+import GetAllPost from './hooks/GetAllPost'
 export const serverUrl = 'http://localhost:8000'
 const App = () => {
+
+  // these are the custom hooks 
   GetCurrentUser();
   getSuggestedUser();
+  GetAllPost();
   const {userData} = useSelector(state => state.user)
 
 
